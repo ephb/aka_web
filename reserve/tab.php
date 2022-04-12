@@ -12,6 +12,7 @@ $options=array(
 "Person 2",
 "Person 3",
 "Person 4",
+"Trailer",
 
 );
 
@@ -28,6 +29,7 @@ $max_time[8]=86400*1;
 $max_time[9]=86400*1;
 $max_time[10]=86400*1;
 $max_time[11]=86400*1;
+$max_time[12]=86400*30*6;
 
 $recover=0;
 $sql_done=0;
