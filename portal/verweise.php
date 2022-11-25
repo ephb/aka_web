@@ -5,17 +5,17 @@ require_once('design/box.php');
 htmlhead('Aka Portal','',0);
 
 echo'
-<table border=0 width="100%"><tr><td width="5%">&nbsp;</td><td width="90%"  class="head">
-<div style="float:left;">
-<a target="Daten" href="../drinks/" class="head">Zur Getr&auml;nkeabrechnung</a> &nbsp; | &nbsp;
-<a target="Daten" href="../liste_des_tyrannen/" class="head">Zur Liste des Tyrannen</a> &nbsp; | &nbsp;
-<a target="Daten" href="../protokoll/" class="head">Zu den Protokollen</a> &nbsp; | &nbsp;
-<a target="Daten" href="../files/" class="head">Zu den Dateiuploads</a> &nbsp; | &nbsp;
-<a target="Daten" href="../reserve/" class="head">Zu dem Reservierungssystem</a> &nbsp; | &nbsp;
-<a target="Daten" href="startseite.php" class="head">Zum Start</a>
-</div><div style="float:right;">v 0.2b</div><br>
+<table border=0 width="100%" class="head"><tr><td width="1%">&nbsp;</td><td width="98%" >
+<div style="float:left;" class="head">
+<a target="Daten" href="../reserve/" class="head">Reservierungssystem</a> &nbsp; | &nbsp;
+<a target="Daten" href="../drinks/" class="head">Getr&auml;nkeabrechnung</a> &nbsp; | &nbsp;
+<a target="Daten" href="../liste_des_tyrannen/" class="head">Liste des Tyrannen</a> &nbsp; | &nbsp;
+<a target="Daten" href="../protokoll/" class="head">Protokolle</a> &nbsp; | &nbsp;
+<a target="Daten" href="../files/" class="head">Dateiuploads</a> &nbsp; | &nbsp;
+<a target="Daten" href="startseite.php" class="head">Start</a>
+</div><div style="float:right;"></div><br>
 <hr style="height:0;  border-bottom:1px dotted #000000; border-top: 0px;">
-</td><td width="5%">&nbsp;</td></tr></table>';
+</td><td width="1%">&nbsp;</td></tr></table>';
 
 
 

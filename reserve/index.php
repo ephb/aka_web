@@ -17,7 +17,7 @@ echo '<table border="0" width="100%"><tr><td width="5%">&nbsp;</td><td width="90
 echo'<div style="float:right;"><a href="index.php?'.SID.'" class="head">&Uuml;bersicht</a> &nbsp; | &nbsp; ';
 
 	echo'
-<a href="index.php?logout=1&'.$SID.'" class="head">Logout</a> &nbsp; v 0.2b</div></td><td width="5%">&nbsp;</td></tr><tr><td>&nbsp;</td><td>';
+<a href="index.php?logout=1&'.$SID.'" class="head">Logout</a> &nbsp;</div></td><td width="5%">&nbsp;</td></tr><tr><td>&nbsp;</td><td>';
 ########### menü ###############
 ########### reinladen ###############
 include('tab.php');

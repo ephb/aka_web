@@ -114,10 +114,9 @@ if($recover==1){
 echo $result['css'];
 echo	'<form action="index.php" method="POST">
 <table width="100%" class="singletable" cellpadding="0">
-			<tr><th>Von wann</th><th>Bis wann</th><th>Wo</th><th>Wer bist du</td><th>Warum</th></tr>
+			<tr><th>Von</th><th>Bis</th><th>Wo</th><th>Wer</td><th>Warum</th></tr>
 			<tr><td>'.$result['from'].'</td>
 			<td>'.$result['to'].'</td>
-			<!--<td><input type="text" size="20" name="wo" value="'.$wo.'"></td>-->
 			<td><select name="wo">'.select('',$options,$wo,'').'</select></td>
 			<td><input type="text" size="20" name="name"  value="'.$wer.'"></td>
 			<td><input type="text" size="20" name="warum" value="'.$warum.'"></td></tr>
@@ -129,7 +128,7 @@ tab_end();
 ##################### Daten sammeln und sortieren ################################
 echo '</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>';
 ##################### Tabelle #############################################
-tab_go("100%",250,'left','&Uuml;bersichtstabelle generiert am: '.date("d.m.y H:i",time()));
+####tab_go("100%",250,'left','&Uuml;bersichtstabelle generiert am: '.date("d.m.y H:i",time()));
 ##### sortierfelder
 /*$values="6,3,1,11,8,5";
 $options="Getr&auml;nke ( seit letztem Update ),Getr&auml;nke ( gesamt ),Vorname,Nachname,Kontostand,Letzer Einzahlungsbetrag";
@@ -138,11 +137,11 @@ echo'<form method="POST" action="index.php?'.SID.'"><div align="center"><select 
 <input type="submit" name="sortieren" value="sortieren"></center></form>';*/
 ##### sortierfelder
 ## ###TABELLEN KOPF
-echo	'<table width="100%" class="singletable" cellpadding="0"><tr><th>Nr</td><th>Von wann</th><th>Bis wann</th><th>Wo</th><th>Wer</td>';
+echo	'<table width="100%" class="singletable" cellpadding="0"><tr><th>Von</th><th>Bis</th><th>Wo</th><th>Wer</td>';
 if($_SESSION['session_user_typ']!=$aka_reserve_watcher_state){
 	echo '<th>Warum</th>';
 };
-echo '<th>Wann angemeldet</th>';
+echo '<th>Angemeldet</th>';
 if($_SESSION['session_user_typ']!=$aka_reserve_watcher_state){
 	echo '<th>Entfernen</th></tr>';
 };
@@ -152,6 +151,7 @@ unset($daten); $a=0;
 $abfrage="SELECT id, von, bis, ort,person,grund,time_create FROM aka_reserve where active=1 and bis>=".time()." order by ort asc,von asc";
 $erg=$mysqli->query($abfrage);
 while(list($db_id,$db_von,$db_bis, $db_ort,$db_person,$db_grund,$db_time_create) = $erg->fetch_row()) {
+	### daten
 	$daten[$a]['id']=$db_id;
 	$daten[$a]['von']=$db_von;
 	$daten[$a]['bis']=$db_bis;
@@ -173,9 +173,11 @@ if($a>0){
 		if($datum['von']<time() && $datum['bis']>time()){	$fett_a='<b>'; $fett_e="</b>"; };
 		if(floor($datum['bis']/86400)==floor(time()/86400)){	$red_a='<font color="#880000">'; $red_e="</font>"; };
 	##### TABELLEN berechnen
+		##			removed id column
+		## 			<td'.$bg_color.' style="height:30px">'.$fett_a.$red_a.$datum['id'].$fett_e.$red_e.'</td>
 	##### TABELLEN anzeigen
 		echo '<tr>
-			<td'.$bg_color.' style="height:30px">'.$fett_a.$red_a.$datum['id'].$fett_e.$red_e.'</td>
+
 			<td'.$bg_color.'>'.$fett_a.$red_a.date("d.m.y H:i",$datum['von']).$fett_e.$red_e.'</td>
 			<td'.$bg_color.'>'.$fett_a.$red_a.date("d.m.y H:i",$datum['bis']).$fett_e.$red_e.'</td>
 			<td'.$bg_color.'>'.$fett_a.$red_a.$datum['ort'].$fett_e.$red_e.'</td>
@@ -185,7 +187,7 @@ if($a>0){
 			echo'<td'.$bg_color.'>'.$fett_a.$red_a.$datum['grund'].$fett_e.$red_e.'</td>';
 		}
 
-		echo '	<td'.$bg_color.'>'.$fett_a.$red_a.date("H:i:s d.m.y",$datum['time_create']).$fett_e.$red_e.'</td>';
+		echo '	<td'.$bg_color.'>'.$fett_a.$red_a.date("H:i d.m.y",$datum['time_create']).$fett_e.$red_e.'</td>';
 		if($_SESSION['session_user_typ']!=$aka_reserve_watcher_state){
 			echo '<td'.$bg_color.'><a href="index.php?delete='.$datum['id'].'" onclick="return confirmLink(this, \'Bitte nur eigene Reservierungen entfernen. Deine ID wird geloggt!\')">Entfernen</a></td>';
 		}

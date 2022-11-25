@@ -58,6 +58,8 @@ td {
 td.head {
 color: white;
 background-color: #354791;
+border-collapse: collapse;
+	font-size: 1.5em;
 }
 
 .inputbox {

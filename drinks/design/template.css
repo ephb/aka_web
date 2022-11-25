@@ -82,7 +82,9 @@ td {
 	color: #111111;
 	padding-left: 2px;
 }
-
+table.singletable{
+	border-collapse: collapse;
+}
 table.singletable td {
 	padding-left: 5px;
 	padding-top: 5px;
@@ -90,6 +92,7 @@ table.singletable td {
 	padding-right: 5px;
 	font-size: 9pt;
 	text-align: left !important;
+	border-collapse: collapse;
 	border: 1px solid #cccccc;
 	background: rgba(255, 255, 255, 0.85);
 }

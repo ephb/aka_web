@@ -52,7 +52,7 @@ if(empty($_SESSION['session_key']))
 	$msg="";
 	require_once('design/box.php');
 	htmlhead('AkAKraft Drinks Login','','');
-	echo	'<table style="height: 100%; width: 100%" border="0" ><tr><td valign="middle" align="center"><img src="img/Logo.gif"><br /><br /><br /><br />
+	echo	'<table style="height: 100%; width: 100%" border="0" ><tr><td valign="middle" align="center"><img src="../portal/img/logo_256px_transparent.png"><br /><br /><br /><br />
 		<form method=post action="index.php?'.$_SERVER['QUERY_STRING'].'" name="login">';
 
 	tab_go(600,'','center','Login');

@@ -4,24 +4,9 @@ function tab_go($width,$height,$align,$title){
 
 if(substr($title,0,4)<>'<div') $title=' &nbsp; &nbsp; '.$title;
 echo '<div class="headline">'.$title.'</div>';
-/*echo
-'<table width="'.$width.'" style="height: '.$height.'" align="'.$align.'" cellspacing="0" cellpadding="0" border="0" bgcolor="#ffffff">
-	<TR>	<TD style="background-image:url(design/top.png)" width="24" height="24"></TD>
-	<TD style="background-image:url(design/top.png)" colspan="2" height="24"><b>'.$title.'</b></TD></TR>
-	<TR><TD >	&nbsp;</TD><TD>';
-#	<TR>	<TD style="background-image:url(design/corner_ul.png)" width="24" height="24"></TD>
-#<TD style="background-image:url(design/top.png)" colspan="2"><b>'.$title.'</b></TD></TR>
-#<TR>	<TD style="background-image:url(design/left.png)"></TD><TD>';*/
 };
 
 function tab_end() {
-/*echo '</TD>
-		<TD ></TD></TR>
-	<TR>	<TD height="10" ></TD>
-		<TD></TD>
-		<TD></TD>
-	</TR>
-</table>';*/
 echo '&nbsp;';
 };
 

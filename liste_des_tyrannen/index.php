@@ -23,7 +23,7 @@ if($_SESSION['session_user_typ']==$aka_tyran_admin_state || $_SESSION['session_u
 			<a href="index.php?mod=fail&'.SID.'" class="head">Aufgabe versaut</a> &nbsp; | &nbsp; ';
 };
 	echo'
-<a href="index.php?logout=1&'.$SID.'" class="head">Logout</a> &nbsp; v 0.2b</div><br>';
+<a href="index.php?logout=1&'.$SID.'" class="head">Logout</a> &nbsp;</div><br>';
 #tab_end();
 echo	'</td><td width="5%">&nbsp;</td></tr><tr><td>&nbsp;</td><td>';
 ########### menü ###############

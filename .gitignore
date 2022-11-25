@@ -1,2 +1,3 @@
 nginx_error.log
 a_common_scripts/db.php
+*.idea
