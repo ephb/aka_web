@@ -10,6 +10,7 @@ htmlhead('Aka Arbeitsliste','',0);
 include("../a_common_scripts/jsc.php");
 include('../a_common_scripts/sec.php');
 ########### vorbereitungen ###############
+setlocale(LC_ALL,"DE");
 ########### menü ###############
 echo '<table border=0 width="100%"><tr><td width="5%">&nbsp;</td><td width="90%"  class="head">';
 #tab_go("100%",250,'center','');

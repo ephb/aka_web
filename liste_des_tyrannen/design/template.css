@@ -3,7 +3,7 @@ html{
 }
 
 body {
-	background-color: #fffff0;
+	background-color: white;
 	background-image: url("../img/04_Stift.png");
 	background-attachment: fixed;
 	background-position: 100% 100%;
@@ -113,9 +113,6 @@ table.singletable th {
 }
 
 
-###############################################################################
-<!--
-
 .pathway {
 	font-size: 8pt;
 	line-height: 20px;
@@ -125,7 +122,7 @@ table.singletable th {
 }
 
 .head {
-	background: #0ffffff;
+
 }
 .user1 {
 	border: 1px solid #cccccc;
@@ -147,7 +144,7 @@ ul#mainlevel-nav li a{
   display : block;
   padding-left : 10px;
   padding-right : 10px;
-  margin : 2;
+  margin : 2px;
   width : auto !important;
   width : 15%;
   font-size : 11px;
@@ -160,7 +157,7 @@ table.moduletable th {
 	text-align: left !important;
 	margin-top: 10px;
         line-height: 20px;
-        width : 160;
+        width : 160px;
 }
 table.moduletable td {
 	font-size: 9pt;
@@ -180,11 +177,11 @@ a.mainlevel:link, a.mainlevel:visited  {
 	border-top: 1px solid #ffffff;
 }
 a.mainlevel:hover {
-	background: url(/templates/gih_theme2/images/menue.gif) repeat-y;
+
 }
 a#active_menu {
 	color: #003466;
-	background: url(/templates/gih_theme2/images/menue.gif) repeat-y;
+
 }
 a#active_menu:hover {
 	text-decoration: none;
@@ -355,7 +352,6 @@ a.toclink:hover {
 .top {
 	line-height: 20px;
 	padding-left: 15px;
-	background: url(/templates/gih_theme2/images/top.png) no-repeat;
 	background-position: 0px 4px;
 }
 .mosimage_caption {

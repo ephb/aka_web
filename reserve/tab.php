@@ -1,4 +1,5 @@
 <?php
+require_once('../reserve/design/box.php');
 $options=array(
 'Grube rechts',
 'Grube links',
@@ -83,7 +84,6 @@ if(!empty($_POST['save'])){
 }
 ####### anfrage verarbeiten####
 ##################### Daten sammeln und sortieren ################################
-#echo "<font size=\"72\" color=\"red\"> ICH BAUE GERADE UM,FUNKTIONSAUSFALL MÖGLICH</font><br>";
 tab_go("100%",250,'left','Neue Reservierung');
 if($recover==1){
 	$result=java_cal2('',$_POST['j_from_time-ts'],$_POST['j_to_time-ts'],time(),mktime(0,0,0,1,1,2030),'_time','h,i',false);
@@ -129,7 +129,7 @@ tab_end();
 ##################### Daten sammeln und sortieren ################################
 echo '</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>';
 ##################### Tabelle #############################################
-tab_go("100%",250,'left','&Uuml;bersichtstabelle generiert am: '.date("d-m-Y H:i",time()));
+tab_go("100%",250,'left','&Uuml;bersichtstabelle generiert am: '.date("d.m.y H:i",time()));
 ##### sortierfelder
 /*$values="6,3,1,11,8,5";
 $options="Getr&auml;nke ( seit letztem Update ),Getr&auml;nke ( gesamt ),Vorname,Nachname,Kontostand,Letzer Einzahlungsbetrag";
@@ -176,8 +176,8 @@ if($a>0){
 	##### TABELLEN anzeigen
 		echo '<tr>
 			<td'.$bg_color.' style="height:30px">'.$fett_a.$red_a.$datum['id'].$fett_e.$red_e.'</td>
-			<td'.$bg_color.'>'.$fett_a.$red_a.date("d-m-Y H:i",$datum['von']).$fett_e.$red_e.'</td>
-			<td'.$bg_color.'>'.$fett_a.$red_a.date("d-m-Y H:i",$datum['bis']).$fett_e.$red_e.'</td>
+			<td'.$bg_color.'>'.$fett_a.$red_a.date("d.m.y H:i",$datum['von']).$fett_e.$red_e.'</td>
+			<td'.$bg_color.'>'.$fett_a.$red_a.date("d.m.y H:i",$datum['bis']).$fett_e.$red_e.'</td>
 			<td'.$bg_color.'>'.$fett_a.$red_a.$datum['ort'].$fett_e.$red_e.'</td>
 			<td'.$bg_color.'>'.$fett_a.$red_a.$datum['person'].$fett_e.$red_e.'</td>';
 
@@ -185,7 +185,7 @@ if($a>0){
 			echo'<td'.$bg_color.'>'.$fett_a.$red_a.$datum['grund'].$fett_e.$red_e.'</td>';
 		}
 
-		echo '	<td'.$bg_color.'>'.$fett_a.$red_a.date("H:i:s d-m-Y",$datum['time_create']).$fett_e.$red_e.'</td>';
+		echo '	<td'.$bg_color.'>'.$fett_a.$red_a.date("H:i:s d.m.y",$datum['time_create']).$fett_e.$red_e.'</td>';
 		if($_SESSION['session_user_typ']!=$aka_reserve_watcher_state){
 			echo '<td'.$bg_color.'><a href="index.php?delete='.$datum['id'].'" onclick="return confirmLink(this, \'Bitte nur eigene Reservierungen entfernen. Deine ID wird geloggt!\')">Entfernen</a></td>';
 		}

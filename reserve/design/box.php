@@ -2,7 +2,7 @@
 
 function tab_go($width,$height,$align,$title){
 
-if(substr($title,0,4)<>'<div') $title=' &nbsp; &nbsp; '.$title;
+if(substr($title,0,4)<>'<div') $title=''.$title;
 echo '<div class="headline">'.$title.'</div>';
 /*echo
 '<table width="'.$width.'" style="height: '.$height.'" align="'.$align.'" cellspacing="0" cellpadding="0" border="0" bgcolor="#ffffff">
