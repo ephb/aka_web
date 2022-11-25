@@ -1239,7 +1239,7 @@ function java_cal2($select_time_activ,$from,$to,$from_mini,$to_max,$name,$fields
                 $from_arr['col_def']['s']."\n".
             '</colgroup>
 	    <tr>
-		<td rowspan="2" style="vertical-align: top;font-weight: bold">From:</td>
+		<td rowspan="2" style="vertical-align: top;font-weight: bold">Von:</td>
 		<td valign="bottom"><input type="text" size="3" id="j_from'.$name.'-date" name="j_from'.$name.'-date" value="'.$from_date_formated.'" maxlength="10"  '.$select_time_activ.' style="width:100px"/ onchange="calc_time'.$name.'();"></td>'.
                 $from_arr['spacer'][0]."\n".
                 $from_arr['field']['h']."\n".
@@ -1266,7 +1266,7 @@ function java_cal2($select_time_activ,$from,$to,$from_mini,$to_max,$name,$fields
                 $to_arr['col_def']['s']."\n".  
             '</colgroup>
 	    <tr>
-		<td rowspan="2" style="vertical-align: top;font-weight: bold"><input type="hidden" name="arc" value="1">To:</td>
+		<td rowspan="2" style="vertical-align: top;font-weight: bold"><input type="hidden" name="arc" value="1">Bis:</td>
 		<td  style="vertical-align: bottom"><input type="text" size="3" id="j_to'.$name.'-date" name="j_to'.$name.'-date" value="'.$to_date_formated.'" maxlength="10"  '.$select_time_activ.' style="width:100px"/ onchange="calc_time'.$name.'();"></td>'.
                 $to_arr['spacer'][0]."\n".
                 $to_arr['field']['h']."\n".
