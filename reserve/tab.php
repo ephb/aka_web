@@ -128,14 +128,7 @@ tab_end();
 ##################### Daten sammeln und sortieren ################################
 echo '</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>';
 ##################### Tabelle #############################################
-####tab_go("100%",250,'left','&Uuml;bersichtstabelle generiert am: '.date("d.m.y H:i",time()));
-##### sortierfelder
-/*$values="6,3,1,11,8,5";
-$options="Getr&auml;nke ( seit letztem Update ),Getr&auml;nke ( gesamt ),Vorname,Nachname,Kontostand,Letzer Einzahlungsbetrag";
-echo'<form method="POST" action="index.php?'.SID.'"><div align="center"><select name="sort">'.select($values,$options,$_POST['sort']).'</select>
-<select name="dir">'.select('0,1','Fallend,Steigend',$_POST['dir']).'</select>
-<input type="submit" name="sortieren" value="sortieren"></center></form>';*/
-##### sortierfelder
+
 ## ###TABELLEN KOPF
 echo	'<table width="100%" class="singletable" cellpadding="0"><tr><th>Von</th><th>Bis</th><th>Wo</th><th>Wer</td>';
 if($_SESSION['session_user_typ']!=$aka_reserve_watcher_state){
