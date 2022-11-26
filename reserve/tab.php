@@ -9,10 +9,6 @@ $options=array(
 'Empore 1',
 'Empore 2',
 'Empore 3',
-"Person 1",
-"Person 2",
-"Person 3",
-"Person 4",
 "Trailer",
 
 );
@@ -26,11 +22,7 @@ $max_time[4]=86400*3;
 $max_time[5]=86400*7*4;
 $max_time[6]=86400*7*4;
 $max_time[7]=86400*7*4;
-$max_time[8]=86400*1;
-$max_time[9]=86400*1;
-$max_time[10]=86400*1;
-$max_time[11]=86400*1;
-$max_time[12]=86400*30*6;
+$max_time[8]=86400*30*6;
 
 $recover=0;
 $sql_done=0;
