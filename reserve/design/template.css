@@ -4,7 +4,7 @@ html{
 
 body {
 	background-color: white;
-	background-image: url("../img/04_Stift.png");
+	background-image: url("../img/clock_bg.png");
 	background-attachment: fixed;
 	background-position: 100% 100%;
 	background-repeat: no-repeat;
@@ -34,7 +34,9 @@ a.headline:link, a.headline:visited,.headline {
 	font-size: 10pt;
 	font-weight: bold;
 	font-family: Arial, Helvetica, sans-serif;
-	color: #AA0000;
+	color: #003466;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
 
@@ -111,7 +113,7 @@ table.singletable td.gray {
 	font-size: 9pt;
 	text-align: left !important;
 	border: none;
-	background: rgba(205, 205, 205, 0.85);
+	background: rgba(205, 205, 205, 0.35);
 }
 table.singletable th {
 	padding-left: 5px;
@@ -122,7 +124,7 @@ table.singletable th {
 	text-align: left !important;
 	color: #121212;
 	border: none;
-	background: rgba(160, 169, 188, 0.85);
+	background: rgba(53, 71, 145, 0.26);
 }
 
 
@@ -190,11 +192,9 @@ a.mainlevel:link, a.mainlevel:visited  {
 	border-top: 1px solid #ffffff;
 }
 a.mainlevel:hover {
-	background: url(/templates/gih_theme2/images/menue.gif) repeat-y;
 }
 a#active_menu {
 	color: #003466;
-	background: url(/templates/gih_theme2/images/menue.gif) repeat-y;
 }
 a#active_menu:hover {
 	text-decoration: none;

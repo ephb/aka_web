@@ -59,7 +59,7 @@ if(empty($_SESSION['session_key']))
 			<tr>	<td align="center" colspan="3">&nbsp;'.$msg.'</td></tr></table>';
 	tab_end();
 
-	echo	'</form></td></tr><tr><td align="right" height="20"><a href="mailto:KKoolljjaa+aka@googlemail.com">Admin</a></td></tr></table>
+	echo	'</form></td></tr><tr><td align="right" height="20"><a href="mailto:admin@akakraft.de">Admin</a></td></tr></table>
 	<script type="text/javascript" language="Javascript">document.login.pw.focus();</script></body></html>'; 
 	exit;
 	};
