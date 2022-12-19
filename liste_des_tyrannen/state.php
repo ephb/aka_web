@@ -64,7 +64,7 @@ foreach ($daten as $index => $datum) {
 	$values[$a]=$index;
 	$a++;
 	};
-//echo'<form method="POST" action="index.php?mod=rmuser&'.SID.'"><div align="center"><b>User entfernen</b>'
+
 
 tab_box("100%",100,'left','User l&ouml;schen/bearbeiten',
 '<form name="edit" action="index.php?mod=state&'.SID.'" method="POST"><table width="100%">
@@ -79,6 +79,6 @@ tab_box("100%",100,'left',$titel,
 	<input type="hidden" name="id" value="'.$vorgabe_id.'"></td></tr>
 <tr><td colspan="2">'.$send.'</td></tr></table></form>');
 ##################### interface ###############################
-//echo '<br><br><br><br><br><hr><br>';
-//include('tab.php');
+echo '<br><br><br><br><br><hr><br>';
+include('tab.php');
 ?>

@@ -1,5 +1,9 @@
 <?php
-session_start();
+###session_start();
+$id = intval($_GET['id']);
+if(!empty($_GET['del']))
+{$del = intval($_GET['del']);}
+
 $id_arr = explode(',',$_GET['id']);
 
 for($a=0;$a<count($id_arr);$a++){
@@ -40,7 +44,7 @@ for($a=0;$a<count($id_arr);$a++){
 	
 	
 	tab_go("500",200,"center","Aufgabenansicht");
-	echo '<table width="500" border="1" class="singletable">
+	echo '<table width="500" border="0" class="singletable">
 	<tr><td width="150"><b>Status</b></td><td>'.$db_status.'</td></tr>
 	<tr><td class="gray"><b>Aufgegeben</b></td><td class="gray">'.date("d-m-y",$db_pre).'</td></tr>
 	<tr><td><b>Status ge&auml;ndert</b></td><td>'.$db_post.'</td></tr>

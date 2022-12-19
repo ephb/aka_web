@@ -130,7 +130,7 @@ for ($a=0;$a<=$max_user;$a++) {
 		$mail    = new PHPMailer();
 		$body    = $common_header.$text.$common_footer;
 		$body    = preg_replace("[\\\\]",'',$body);
-		$mail->AddReplyTo('Kolja.Windeler@gmail.com');
+		$mail->AddReplyTo('admin@akakraft.de');
 		$mail->From 	= 'noreply@akakraft.de';
 		$mail->FromName = "AKA Getr".chr(228)."nkemailer";
 		$mail->Subject = "AkA Getr".chr(228)."nkelisten Update ".date('d.M.Y',time());
@@ -167,7 +167,7 @@ if(time()-$daten[$temp_user][7]<60){ # eigentlich doof aber total praktisch f�
 	
 	$body.='	<br><br>(bis zum '.date('d.M.Y',time()+10*86400).') </center></body></html>';
 	$body    = preg_replace("[\\\\]",'',$body);
-	$mail->AddReplyTo('Kolja.Windeler@gmail.com');
+	$mail->AddReplyTo('admin@akakraft.de');
 	$mail->From 	= 'noreply@akakraft.de';
 	$mail->FromName = "AKA Getr".chr(228)."nkemailer";
 	$mail->Subject = 'AKA Getr'.chr(228).'nkelisten Pranger (bis zum '.date('d.M.Y',time()+10*86400).')';

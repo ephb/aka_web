@@ -1,5 +1,4 @@
 <?php
-$_GET['mod']="";
 ########### vorbereitungen ###############
 session_start();
 if(!isset($SID)) { $SID = session_id(); };

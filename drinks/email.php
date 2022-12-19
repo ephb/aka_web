@@ -59,7 +59,7 @@ Bitte sei bem&uuml;ht, stets ein Polster ( ~ 10 eur ) auf deinem Konto zu haben.
 <b>Wichtig!</b></u>: Wenn ihr f&uuml;r jemand anderen Geld &uuml;berweist muss der Betreff mit den Buchstaben "xxx" beginnen, gefolgt vom Namen<br>
 </body></html>';
 		$body    = preg_replace("[\\\\]",'',$body);
-		$mail->AddReplyTo('Kolja.Windeler@gmail.com');
+		$mail->AddReplyTo('admin@akakraft.de');
 		$mail->From 	= 'noreply@akakraft.de';
 		$mail->FromName = "AKA Getr".chr(228)."nkemailer";
 		$mail->Subject = "AKA Getr".chr(228)."nkelisten Update";
@@ -91,7 +91,7 @@ if(isset ($temp_user) && time()-$daten[$temp_user][7]<60){ # eigentlich doof abe
 	
 	$body.='	<br><br>(bis zum '.date('d.M.Y',time()+10*86400).') </center></body></html>';
 	$body    = preg_replace("[\\\\]",'',$body);
-	$mail->AddReplyTo('Kolja.Windeler@gmail.com');
+	$mail->AddReplyTo('admin@akakraft.de');
 	$mail->From 	= 'noreply@akakraft.de';
 	$mail->FromName = "AKA Getr".chr(228)."nkemailer";
 	$mail->Subject = 'AKA Getr'.chr(228).'nkelisten Pranger (bis zum '.date('d.M.Y',time()+10*86400).')';

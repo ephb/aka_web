@@ -1,8 +1,11 @@
 <?php
-session_start();
+#session_start();
+include('../a_common_scripts/config.php');
 if($_SESSION['session_user_typ']<>$aka_tyran_admin_state && $_SESSION['session_user_typ']<>$aka_super_admin_state) { exit('falsches passwort'); };
 include_once('collect_data.php');
-include_once('mailer/class.phpmailer.php');
+include_once('../a_common_mailer/class.phpmailer.php');
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT);
+ini_set('display_errors', '1');
 ##################################################
 
 if(!empty($_POST)){
@@ -11,13 +14,13 @@ if(!empty($_POST)){
 		// Frag alle user ab
 		$task_user='';
 		$abfrage="SELECT aka_id.name FROM aka_id, aka_tasks_user where aka_tasks_user.id=aka_id.id AND aka_id.id!=".$_POST['user_id']." AND aka_tasks_user.ACTIVE_TASK=".$_GET['task_id'];
-		$db= mysqli_select_db($verbindung, $db);
-		$erg=$db->query($abfrage);
+		$db= mysqli_select_db($connection, $db);
+		$erg=$mysqli->query($abfrage);
 		while(list($db_task_user) = mysqli_fetch_row($erg)) {
 			$task_user.=$db_task_user;
 		};
 		
-		list($db_task_cap,$db_task_desc)=mysqli_fetch_row($db->query("SELECT `title`,`desc` from aka_tasks where `id`='".$_GET['task_id']."';",$verbindung));
+		list($db_task_cap,$db_task_desc)=mysqli_fetch_row($mysqli->query("SELECT `title`,`desc` from aka_tasks where `id`='".$_GET['task_id']."';"));
 			
 		$mail    = new PHPMailer();
 		$body    = '<html><body>Hallo '.$daten[$_POST['user_id']][0].', <br>
@@ -32,11 +35,11 @@ Bescheid. Da du als Verst&auml;rkung zur Aufgabe gezogen wurdest sind damit dein
 <br>
 '.$task_user.'<br>
 <br>
-Alle Aufgaben sind einzusehen unter <a href="http://akakraft.de/liste_des_tyrannen/"> akakraft.de/liste_des_tyrannen</a>.<br>
+Alle Aufgaben sind einzusehen unter <a href="https://portal.akakraft.de/liste_des_tyrannen/"> portal.akakraft.de/liste_des_tyrannen/</a>.<br>
 Mit besten Gr&uuml;&szlig;en, der Arbeitsverteiler Kolja 8)
 </body></html>';
 		$body    = preg_replace("[\\\\]",'',$body);
-		$mail->AddReplyTo('Kolja.Windeler@gmail.com');
+		$mail->AddReplyTo('admin@akakraft.de');
 		$mail->From 	= 'noreply@akakraft.de';
 		$mail->FromName = "AKA Arbeitsliste";
 		$mail->Subject = "AKA Aufgabe";
@@ -55,13 +58,13 @@ Mit besten Gr&uuml;&szlig;en, der Arbeitsverteiler Kolja 8)
 if(!empty($_GET['task_id'])){
 	tab_go("100%",250,'left','Akaler ausw&auml;hlen f&uuml;r Aufgaben ID '.$_GET['task_id']);
 	// suche minimale aufgaben anzahl
-	list($db_min_success) = mysqli_fetch_row($db->query("SELECT `NUM_SUCCESS` FROM `aka_tasks_user` where state=1 order by `NUM_SUCCESS` asc",$verbindung));
-	list($db_max_success) = mysqli_fetch_row($db->query("SELECT `NUM_SUCCESS` FROM `aka_tasks_user` where state=1 order by `NUM_SUCCESS` desc",$verbindung));
+	list($db_min_success) = mysqli_fetch_row($mysqli->query("SELECT `NUM_SUCCESS` FROM `aka_tasks_user` where state=1 order by `NUM_SUCCESS` asc"));
+	list($db_max_success) = mysqli_fetch_row($mysqli->query("SELECT `NUM_SUCCESS` FROM `aka_tasks_user` where state=1 order by `NUM_SUCCESS` desc"));
 	// keine activ task
 	$a=0;
 	for($i=0;$i<=($db_max_success-$db_min_success);$i++){
 		$abfrage="SELECT aka_id.id FROM aka_tasks_user,aka_id where aka_tasks_user.id=aka_id.id and aka_tasks_user.NUM_SUCCESS=".($db_min_success+$i)." AND aka_tasks_user.active_task='' AND aka_tasks_user.state=1 order by aka_id.name asc";
-		$erg=mysqli_db_query($db,$abfrage,$verbindung);
+		$erg=$mysqli->query($abfrage);
 		while(list($db_id) = mysqli_fetch_row($erg)) {
 			$values[$a]=$db_id;
 			$options[$a]=$daten[$db_id][0].' '.$daten[$db_id][11];
@@ -80,14 +83,17 @@ tab_go("100%",250,'left','Aufgabe zum Aufstocken ausw&auml;hlen');
 echo '<table width="500" border="1" class="singletable">
 <form name="edit" action="index.php?mod=success&'.SID.'" method="POST">
 <tr><th width="20">Id</th><th>Title</th></tr>';
-$abfrage="SELECT `id`,`desc`,`title` FROM `aka_tasks` WHERE status<>'1' order by `id` asc;";
-$db= mysqli_select_db($verbindung, $db);
-$erg=$db->query($abfrage);
+$abfrage="SELECT `id`,`desc`,`title` FROM `aka_tasks` WHERE `status` = 0 order by `id` asc;";
+$db= mysqli_select_db($connection, $db);
+$erg=$mysqli->query($abfrage);
 while(list($db_id,$db_desc,$db_title) = mysqli_fetch_row($erg)) {
 #echo "suche für die aufgabe mit der id ".$db_id." den user raus<br>";
-    list($db_task_user_id)=mysqli_fetch_row($db->query($db,"SELECT `id` FROM `aka_tasks_user` WHERE `ACTIVE_TASK`=".$db_id.";",$verbindung));
-#echo "gefunden wurde die user id:".$db_task_user_id."<br>";
-    list($db_task_user)=mysqli_fetch_row($db->query($db,"SELECT `name` FROM `aka_id` WHERE `id`=".$db_task_user_id.";",$verbindung));
+    list($db_task_user_id)=mysqli_fetch_row($mysqli->query("SELECT `id` FROM `aka_tasks_user` WHERE `ACTIVE_TASK`=".$db_id.";"));
+	// skip tasks where no user is assigned
+// if (empty($db_task_user_id))
+//	continue;
+// echo "gefunden wurde die user id:".$db_task_user_id."<br>";
+//    list($db_task_user)=mysqli_fetch_row($mysqli->query("SELECT `name` FROM `aka_id` WHERE `id`=".$db_task_user_id.";"));
         
     echo '<tr><td>'.$db_id.'</td><td><a href="index.php?mod=addperson&task_id='.$db_id.'">'.$db_title.'</a></td></tr>';
 };

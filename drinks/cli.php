@@ -60,7 +60,7 @@ if($_GET['action']=="add" && !empty($_GET['name']) && !empty($_GET['amount'])){
 		$mail    = new PHPMailer();
 		$body    = '<html><body>Alert: no heartbeat for 5 days</body></html>';
 		$body    = preg_replace("[\\\\]",'',$body);
-		$mail->AddReplyTo('Kolja.Windeler@gmail.com');
+		$mail->AddReplyTo('admin@akakraft.de');
 		$mail->From 	= 'noreply@akakraft.de';
 		$mail->FromName = "AKA Checker";
 		$mail->Subject = "AKA Checker";

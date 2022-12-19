@@ -3,6 +3,8 @@ if($_SESSION['session_user_typ']<>$aka_tyran_admin_state && $_SESSION['session_u
 ##################### security ################################
 include('collect_data.php');
 include_once('../a_common_mailer/class.phpmailer.php');
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT);
+ini_set('display_errors', '1');
 ##################### incoming post ############################
 $error=0;
 if(!empty($_POST['save'])) {
@@ -28,7 +30,7 @@ Alle Aufgaben sind einzusehen unter <a href="http://akakraft.de/liste_des_tyrann
 Mit besten Gr&uuml;&szlig;en, der Arbeitsverteiler Kolja 8)
 </body></html>';
 			$body    = preg_replace("[\\\\]",'',$body);
-			$mail->AddReplyTo('Kolja.Windeler@gmail.com');
+			$mail->AddReplyTo('admin@akakraft.de');
 			$mail->From 	= 'noreply@akakraft.de';
 			$mail->FromName = "AKA Arbeitsliste";
 			$mail->Subject = "AKA Aufgabe";
@@ -51,21 +53,19 @@ Mit besten Gr&uuml;&szlig;en, der Arbeitsverteiler Kolja 8)
 };
 ##################### incoming post ############################
 ##################### interface ###############################
-list($db_min_success) = mysqli_fetch_row($db->query("SELECT `NUM_SUCCESS` FROM `aka_tasks_user` where state=1 order by `NUM_SUCCESS` asc",$verbindung));
-list($db_max_success) = mysqli_fetch_row($db->query("SELECT `NUM_SUCCESS` FROM `aka_tasks_user` where state=1 order by `NUM_SUCCESS` desc",$verbindung));
+list($db_min_success) = mysqli_fetch_row($mysqli->query("SELECT `NUM_SUCCESS` FROM `aka_tasks_user` where state=1 order by `NUM_SUCCESS` asc"));
+list($db_max_success) = mysqli_fetch_row($mysqli->query("SELECT `NUM_SUCCESS` FROM `aka_tasks_user` where state=1 order by `NUM_SUCCESS` desc"));
 // keine activ task
 $a=0;
 for($i=0;$i<=($db_max_success-$db_min_success);$i++){
 	$abfrage="SELECT aka_id.id FROM aka_tasks_user,aka_id where aka_tasks_user.id=aka_id.id and aka_tasks_user.NUM_SUCCESS=".($db_min_success+$i)." AND aka_tasks_user.active_task='' AND aka_tasks_user.state=1 order by aka_id.name asc";
-	$erg=mysqli_db_query($db,$abfrage,$verbindung);
+	$erg=$mysqli->query($abfrage);
 	while(list($db_id) = mysqli_fetch_row($erg)) {
 		$values[$a]=$db_id;
 		$options[$a]=$daten[$db_id][0].' '.$daten[$db_id][11];
 		$a++;
 	};
 };
-
-//echo'<form method="POST" action="index.php?mod=rmuser&'.SID.'"><div align="center"><b>User entfernen</b>'
 
 tab_box("100%",100,'left','Aufgabe anlegen',
 '<form name="edit" action="index.php?mod=addtask&'.SID.'" method="POST"><table width="100%">
@@ -75,6 +75,6 @@ tab_box("100%",100,'left','Aufgabe anlegen',
 <tr><td colspan="2"><input type="submit" name="save" value="Speichern"></td></tr></table></form>');	
 
 ##################### interface ###############################
-//echo '<br><br><br><br><br><hr><br>';
-//include('tab.php');
+echo '<br><br><br><br><br><hr><br>';
+include('tab.php');
 ?>
