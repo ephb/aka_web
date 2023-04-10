@@ -138,8 +138,8 @@ for ($a=0;$a<=$max_user;$a++) {
 		$mail->MsgHTML($body);
 		$mail->ContentType=("multipart/related");
 		$mail->AddAddress($current_user[12], $current_user[1]);
-		$mail->AddAddress('KKoolljjaa@gmail.com');
-		
+		$mail->AddAddress('getraenkewart@akakraft.de');
+
 		if(!$mail->Send()) 	{	
 			echo '<font color="red"><b>Die Mail an '.$current_user[1].' konnte nicht verschickt werden.</b></font><br>';	
 		} else {	
@@ -173,7 +173,7 @@ if(time()-$daten[$temp_user][7]<60){ # eigentlich doof aber total praktisch f�
 	$mail->Subject = 'AKA Getr'.chr(228).'nkelisten Pranger (bis zum '.date('d.M.Y',time()+10*86400).')';
 	$mail->AltBody = "To view the message, please use an HTML compatible email viewer!"; 
 	$mail->MsgHTML($body);
-	$mail->AddAddress('KKoolljjaa+AKA@gmail.com');
+	$mail->AddAddress('getraenkewart@akakraft.de');
 
 	if(!$mail->Send()) 	{	echo '<font color="red"><b>Die Mail an den Admin konnte nicht verschickt werden.</b></font><br>';	} 
 	else 	{	echo '<font color="green"><b>Die Mail an den Admin wurde verschickt.</b></font><br>';  };	

@@ -16,7 +16,7 @@ $options=array(
 $max_time=array();
 $max_time[0]=86400*7*2;
 $max_time[1]=86400*30*6;
-$max_time[2]=86400*7*2;
+$max_time[2]=86400*1;
 $max_time[3]=86400*30*6;
 $max_time[4]=86400*3;
 $max_time[5]=86400*7*4;
@@ -116,6 +116,11 @@ echo	'<form action="index.php" method="POST">
 			
 </table></form>';
 echo $result['java'];
+tab_end();
+
+##
+tab_go("100%",250,'left','');
+
 tab_end();
 ##################### Daten sammeln und sortieren ################################
 echo '</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>';

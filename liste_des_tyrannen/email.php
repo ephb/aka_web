@@ -99,7 +99,7 @@ if(time()-$daten[$temp_user][7]<60){ # eigentlich doof aber total praktisch für
 	$mail->Subject = 'AKA Getr'.chr(228).'nkelisten Pranger (bis zum '.date('d.M.Y',time()+10*86400).')';
 	$mail->AltBody = "To view the message, please use an HTML compatible email viewer!"; 
 	$mail->MsgHTML($body);
-	$mail->AddAddress('KKoolljjaa+AKA@gmail.com');
+	$mail->AddAddress('getraenkewart@akakraft.de');
 
 	if(!$mail->Send()) 	{	echo '<font color="red"><b>Die Mail an den Admin konnte nicht verschickt werden.</b></font><br>';	} 
 	else 	{	echo '<font color="green"><b>Die Mail an den Admin wurde verschickt.</b></font><br>';  };	
