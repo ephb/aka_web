@@ -11,6 +11,8 @@ echo'
 <a target="Daten" href="../drinks/" class="head">Getr&auml;nkeabrechnung</a> &nbsp; | &nbsp;
 <a target="_blank" href="https://my.hidrive.com/share/zf11qosqq0" class="head">Protokolle/Dateien</a> &nbsp; | &nbsp;
 <!-- <a target="Daten" href="../liste_des_tyrannen/" class="head">Liste des Tyrannen</a> &nbsp; | &nbsp; -->
+<a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSfjqAhSYKy01cebzNWogyLXmFNkxH8pF2CewfQ1lhuKXZ4JNw/viewform?usp=sf_link" class="head">Rallye</a> &nbsp; | &nbsp;
+<a target="_blank" href="https://akakraft.de//126-werkzeugliste" class="head">Werkzeugliste</a> &nbsp; | &nbsp;
 <a target="Daten" href="startseite.php" class="head">Start</a>
 </div><div style="float:right;"></div><br>
 <hr style="height:0;  border-bottom:1px dotted #000000; border-top: 0px;">
