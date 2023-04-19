@@ -1,13 +1,16 @@
 <?php
-session_start($SID);
+if(!isset($_SESSION))
+{
+    $SID=session_start();
+}
 include('../a_common_scripts/config.php');
 include('../a_common_scripts/fkt_jkw.php');
 include('../drinks/design/box.php');
 htmlhead('Aka Rallye','',1);
 include("../a_common_scripts/jsc.php");
 include('../drinks/collect_data.php');
-$daten=kolja_sort($daten,1);
-$daten=array_reverse($daten);
+
+
 
 
 if(!empty($_POST['send'])){
@@ -20,25 +23,25 @@ if(!empty($_POST['send'])){
         $i=0;
         while($nfound){
             $i++;
-            $qry=mysql_query("SELECT count(*) from rallye where id='".$i."'");
-            list($count)=mysql_fetch_row($qry);
+            $qry=mysqli_query($mysqli, "SELECT count(*) from rallye where id='".$i."'");
+            list($count)=mysqli_fetch_row($qry);
             if($count==0){ $nfound=false; }
         };
         $group=$i;
     };
     if($_POST['action']=='rem'){
-        mysql_query("DELETE FROM rallye where name='".$name."'");
-        #echo "DELTE FROM rallye where name='".$name."' limit 0,1";
+        mysqli_query($mysqli,"DELETE FROM rallye where name='".$name."'limit 0,1 ");
+        #echo "DELETE FROM rallye where name='".$name."' limit 0,1";
     } else {
         //1. checken obs den user schon gibt
-        $qry=mysql_query("SELECT count(*) from rallye where name='".$name."'");
-        list($db)=mysql_fetch_row($qry);
+        $qry=mysqli_query($mysqli,"SELECT count(*) from rallye where name='".$name."'");
+        list($db)=mysqli_fetch_row($qry);
         if($db>0){ // update
             #echo "update:";
-            mysql_query("UPDATE `rallye` SET `id` = '".$group."' WHERE `rallye`.`name` ='".$name."' LIMIT 1 ;");
+            mysqli_query($mysqli, "UPDATE `rallye` SET `id` = '".$group."' WHERE `rallye`.`name` ='".$name."' LIMIT 1 ;");
         } else { // insert
             #echo "insert";
-            mysql_query("INSERT INTO `rallye` (`id` ,`name`)VALUES ('".$group."','".$name."');");
+            mysqli_query($mysqli, "INSERT INTO `rallye` (`id` ,`name`)VALUES ('".$group."','".$name."');");
         }
     };
 }
@@ -48,7 +51,7 @@ echo '<body text="#000055">';
 tab_box("650",100,'center','Aka Rallye 2019',
 '<table width="100%">
 <tr>
-	<td><img src="../drinks/img/Logo.gif"></td>
+	<td><img src="../portal/img/logo_256px_transparent.png"></td>
 	<td valign="center"><font size="+4"><b>Aka Rallye 2018</b></font></center></td>
 </tr>
 <tr><td colspan="2" align="center">
@@ -85,13 +88,14 @@ Der Verein übernimmt keine Haftung für eventuelle Personen- und/oder Sachschä
 
 $liste='';
 $group_list='';
-$qry=mysql_query("SELECT distinct id from rallye");
-while(list($id)=mysql_fetch_row($qry)){
+$qry="SELECT distinct id from rallye";
+$erg=$mysqli->query($qry);
+while(list($id)=mysqli_fetch_row($erg)){
     $name_in_group='';
     $numbers_in_group=0;
     $liste.='<tr><td>';
-    $qry2=mysql_query("SELECT name from rallye where id='".$id."'");
-    while(list($name)=mysql_fetch_row($qry2)){
+    $queryresult=mysqli_query($mysqli, "SELECT name from rallye where id='".$id."'");
+    while(list($name)=mysqli_fetch_row($queryresult)){
         $name_in_group.=$name.',';
         $liste.=$name.',';
         $numbers_in_group++;
@@ -120,6 +124,9 @@ tab_box("650",100,'center','Anmeldungen',
 
 echo '<br><br>';
 
+$daten=kolja_sort($daten,1);
+$daten=array_reverse($daten);
+
 for($a=0;$a<count($daten);$a++){
 	$options[$a]=$daten[$a][1];
 	$values[$a]=$daten[$a][1];
@@ -128,7 +135,7 @@ for($a=0;$a<count($daten);$a++){
 tab_box("650",100,'center','Anmelden',
 '<form name="edit" action="index.php" method="POST"><table border="0" width="100%">
 <tr><td width="50%"><b>Vorstellen</b></td><td align="right"><b>Was m&ouml;chtest du tun ?</b></td></tr>
-<tr><td valign="top">Na, wer bist du denn? <br><select name="rm">'.select($values,$options,$HTTP_POST_VARS['rm']).'</select><br>
+<tr><td valign="top">Na, wer bist du denn? <br><select name="rm">'.select($values,$options,$_POST['rm']).'</select><br>
 Ich bin gar nicht in der Liste, ich heiße: <input type="text" name="rm2" value="-">
 </td><td align="right" valign="top">
 <input type="radio" name="action" value="new" />Ich m&ouml;chte eine neue Gruppe gr&uuml;nden<br><br>

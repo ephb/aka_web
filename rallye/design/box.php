@@ -6,15 +6,15 @@ if(substr($title,0,4)<>'<div') $title=' &nbsp; &nbsp; '.$title;
 
 echo
 '<table width="'.$width.'" style="height: '.$height.'" align="'.$align.'" cellspacing="0" cellpadding="0" border="0">
-	<TR>	<TD style="background-image:url(design/corner_ul.png)" width="24" height="24"></TD>
-		<TD style="background-image:url(design/top.png)" colspan="2"><b>'.$title.'</b></TD></TR>
-	<TR>	<TD style="background-image:url(design/left.png)"></TD><TD>';
+	<TR>	<TD style="background-image:url(../design/corner_ul.png)" width="24" height="24"></TD>
+		<TD style="background-image:url(../design/top.png)" colspan="2"><b>'.$title.'</b></TD></TR>
+	<TR>	<TD style="background-image:url(../design/left.png)"></TD><TD>';
 };
 
 function tab_end() {
 echo '</TD>
 		<TD ></TD></TR>
-	<TR>	<TD height="10" style="background-image:url(design/left.png)"></TD>
+	<TR>	<TD height="10" style="background-image:url(../design/left.png)"></TD>
 		<TD></TD>
 		<TD></TD>
 	</TR>
@@ -63,7 +63,7 @@ function sub_tab_go($width,$height,$align,$title,$sub){
 function sub_tab_end($sub) {
 echo '</TD>
 		<TD ></TD></TR>
-	<TR>	<TD height="10" style="background-image:url('.$sub.'/design/left.png)"></TD>
+	<TR>	<TD height="10" style="background-image:url('.$sub.'/../design/left.png)"></TD>
 		<TD></TD>
 		<TD></TD>
 	</TR>
