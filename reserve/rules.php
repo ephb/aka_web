@@ -5,7 +5,6 @@ echo'
 3. Mehrzweckarbeitsplatz: 1 Tag<br>
 4. Linke Bühne: 6 Monate<br>
 5. Rechte Bühne: 3 Tage<br>
-6. Emporen: 28 Tage<br>
-7. Trailer: Kontakt mit Lars aufnehmen<br><br><br>
+6. Emporen: 28 Tage<br><br><br>
 '
 ?>
