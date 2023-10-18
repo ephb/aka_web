@@ -20,7 +20,7 @@ for ($a=0;$a<=$max_user;$a++) {
 			}
 		elseif($daten[$a][4]<$daten[$a][7]){ // Getränkestriche // abbuchung nach aufbuchung
 			if($daten[$a][8]<(-5)) {
-				$add_text.='die Getr&auml;nkeliste wurde ausgewertet und auf deinem Konto befindet sich nun mit mehr als 5 eur in den Miesen.<br> Laut Clubabendbeschluss hast du nun <b>bis zum '.date('d.M.Y',time()+10*86400).'</b> Zeit, dein Konto &uuml;ber 0 zu bringen.<br>Ansonsten werden 5 eur Mahngeb&uuml;hren f&auml;llig.';
+				$add_text.='die Getr&auml;nkeliste wurde ausgewertet und auf deinem Konto befindet sich nun mit mehr als 5 eur in den Miesen.<br> Du hast nun <b>bis zum '.date('d.M.Y',time()+10*86400).'</b> Zeit, dein Konto &uuml;ber 0 zu bringen.<br>Ansonsten werden 5 eur Mahngeb&uuml;hren f&auml;llig.';
 			} elseif($daten[$a][8]<5) {  //  und Guthaben < 5€
 				$add_text='die Getr&auml;nkeliste wurde ausgewertet und auf deinem Konto befindet sich nun unter 5 eur.<br> Bitte lad es schnellstm&ouml;glich auf.'; //2do
 			} elseif($daten[$a][8]>0 && $daten[$a][13]) { // und ich will es immer wissen
