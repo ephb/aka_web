@@ -4,7 +4,7 @@ if(!isset($_SESSION))
     $SID=session_start();
 }
 
-require_once('scripts/fkt_jkw.php');
+require_once('../a_common_scripts/fkt_jkw.php');
 require_once('design/box.php');
 htmlhead('Aka Portal','',1);
 

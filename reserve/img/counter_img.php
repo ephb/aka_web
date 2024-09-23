@@ -1,96 +1,85 @@
 <?php
-////////////////////////////VARS UND BILD ///////////////////////
-$x = 600;
-$y = 200;
-$im = imagecreatetruecolor($x,$y);
-$weiss  = ImageColorAllocate ($im, 255, 255, 255);
-imagefilledrectangle($im,0,0,$x,$y,$weiss);
+// Variables and Image Setup
+$width = 600;
+$height = 200;
+$image = imagecreatetruecolor($width, $height);
+$white = imagecolorallocate($image, 255, 255, 255);
+imagefilledrectangle($image, 0, 0, $width, $height, $white);
+
 $time = $_GET['time'];
+
 include('../scripts/config.php');
-$db_counter="aka_counter";
-////////////////////////////VARS UND BILD ///////////////////////
-////////////////////////////db in array///////////////////////
-$array = $mysqli->query("SELECT time,typ FROM `".$db_counter."` WHERE typ<>'9'"); 
-$a=0;
-while(list($l_time,$l_typ) = mysqli_fetch_row($array))
-	{
-	$data[$a][0]=$l_time;
-	$data[$a][1]=$l_typ;
-	$a++;
-	};
-////////////////////////////db in array///////////////////////
-////////////////////////////array sort///////////////////////
-for($i=0;$i<=23;$i++)
-	{
-	$imin=mktime($i,0,0,date("n",$time),date("j",$time),date("Y",$time));
-	$imax=mktime($i+1,0,0,date("n",$time),date("j",$time),date("Y",$time));
-	
-	$nr=0;	$nr2=0;
-	for($i2=0;$i2<=count($data);$i2++)
-		{
-		if($data[$i2][0]>$imin AND $data[$i2][0]<$imax)
-			{	
-			$count0[$i][$nr2]=$data[$i2][0];	
-			$nr2++;	
-			};
-		};
-	};
-////////////////////////////array sort////////////////////////
-////////////////////////////array scale //////////////////////
-$maxi=0;
-for($i=0;$i<=23;$i++)
-	{	
-	if(count($count0[$i])>$maxi) 
-		{	$maxi = count($count0[$i]);	};
-	};
-if($maxi>0) {
-	for($i=0;$i<=23;$i++)
-		{ 
-		$h0[$i] = round((count($count0[$i])/$maxi)*100);
-		};
-	};
-//////////////////////////array scale/////////////////////////
-$lueckebr=5;
-$luecke=$lueckebr*30;   //150
-$breite= round((($x-30)-$luecke)/23);  //19
-$i=0;
-while($i<=23)
-	{	
-	$xnull=($lueckebr*($i))+($breite*($i));
-	$ynull=30;
-	$xeins=$xnull+$breite;
-	imageline($im,$xnull-3,0,$xnull-3,$y,ImageColorAllocate ($im, 234, 234, 234));
-	$i++;
-	};
+$dbTable = "aka_counter";
 
-$i=0;
-while($i<=23)
-	{
-	$xnull=($lueckebr*($i))+($breite*($i));
-	$ynull=30;
-	$xeins=$xnull+$breite;
-	
-	if(count($count0[$i])>0)
-		{
-		$ynull=round($h0[$i]*($y-30)/100);
-		$points[0]=$xnull;		$points[1]=$y-$ynull;
-		$points[2]=$xnull+5;		$points[3]=$y-$ynull-5;
-		$points[4]=$xnull+5+$breite;		$points[5]=$y-$ynull-5;
-		$points[6]=$xnull+5+$breite;		$points[7]=$y-6;
-		$points[8]=$xnull+$breite;		$points[9]=$y-1;
-		$points[10]=$xnull+$breite;		$points[11]=$y-$ynull;
-		imagerectangle($im,$xnull,$y-$ynull,$xnull+$breite,$y-1,0);
-		imagefilledpolygon($im,$points,6,ImageColorAllocate ($im, 222, 222, 222));
-		imagepolygon($im,$points,6,0);
-		imageline($im,$xnull+$breite,$y-$ynull,$xnull+5+$breite,$y-$ynull-5,0);
-		imagestring($im,"Arial",$xnull+round($breite/6),$y-$ynull+5,count($count0[$i]),0);
-		};
-	imagestring($im,"Arial",$xnull+3,$y-10,$i.'.',0); 
-	$i++;
-	};
-imagestring($im,"Arial",$xnull+$breite+15,$y-35,'Zugriffe',0); 
-imagestring($im,"Arial",$xnull+$breite+15,$y-10,'Uhrzeit',0); 
-imagejpeg($im);
-imagedestroy($im);
+// Retrieve data from the database
+$query = "SELECT time, typ FROM `$dbTable` WHERE typ <> '9'";
+$result = $mysqli->query($query);
 
+$data = [];
+while ($row = $result->fetch_assoc()) {
+    $data[] = [$row['time'], $row['typ']];
+}
+
+// Sorting data into hours
+$countData = [];
+for ($hour = 0; $hour <= 23; $hour++) {
+    $minTime = mktime($hour, 0, 0, date("n", $time), date("j", $time), date("Y", $time));
+    $maxTime = mktime($hour + 1, 0, 0, date("n", $time), date("j", $time), date("Y", $time));
+
+    $countData[$hour] = array_filter($data, function($entry) use ($minTime, $maxTime) {
+        return $entry[0] > $minTime && $entry[0] < $maxTime;
+    });
+}
+
+// Scale data
+$maxCount = max(array_map('count', $countData));
+
+if ($maxCount > 0) {
+    $scaledData = [];
+    for ($hour = 0; $hour <= 23; $hour++) {
+        $scaledData[$hour] = round((count($countData[$hour]) / $maxCount) * 100);
+    }
+}
+
+// Drawing the graph
+$gapBetweenBars = 5;
+$gapWidth = $gapBetweenBars * 30;
+$barWidth = round(($width - 30 - $gapWidth) / 23);
+
+for ($hour = 0; $hour <= 23; $hour++) {
+    $xStart = ($gapBetweenBars * $hour) + ($barWidth * $hour);
+    $xEnd = $xStart + $barWidth;
+
+    imageline($image, $xStart - 3, 0, $xStart - 3, $height, imagecolorallocate($image, 234, 234, 234));
+
+    if (!empty($countData[$hour])) {
+        $scaledHeight = round($scaledData[$hour] * ($height - 30) / 100);
+        $yStart = $height - $scaledHeight;
+
+        $points = [
+            $xStart, $yStart,
+            $xStart + 5, $yStart - 5,
+            $xStart + 5 + $barWidth, $yStart - 5,
+            $xStart + 5 + $barWidth, $height - 6,
+            $xStart + $barWidth, $height - 1,
+            $xStart + $barWidth, $yStart
+        ];
+
+        imagerectangle($image, $xStart, $yStart, $xEnd, $height - 1, 0);
+        imagefilledpolygon($image, $points, 6, imagecolorallocate($image, 222, 222, 222));
+        imagepolygon($image, $points, 6, 0);
+        imageline($image, $xEnd, $yStart, $xEnd + 5, $yStart - 5, 0);
+        imagestring($image, 5, $xStart + round($barWidth / 6), $height - $scaledHeight + 5, count($countData[$hour]), 0);
+    }
+
+    imagestring($image, 5, $xStart + 3, $height - 10, $hour . '.', 0);
+}
+
+// Add labels
+imagestring($image, 5, $xEnd + 15, $height - 35, 'Accesses', 0);
+imagestring($image, 5, $xEnd + 15, $height - 10, 'Time', 0);
+
+// Output the image
+imagejpeg($image);
+imagedestroy($image);
 ?>

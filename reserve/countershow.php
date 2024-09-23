@@ -1,23 +1,34 @@
-<?
+<?php
 session_start();
-$time=time();
-$time2=time()-86400;
+$time = time();
+$time2 = time() - 86400;
 $mode = $_GET['mode'];
-tab_go("100%",200,"center","Counter");
-if($mode=='heute') 
-	{
-	echo'<u><b>Heute bisher:</b></u><br>
-	<center><img src="img/counter_img.php?time='.$time.'" ></center><br><hr><br>
-	<u><b>Gestern gesamt:</b></u><br>
-	<center><img src="img/counter_img.php?time='.$time2.'" ></center><br>';
-	}
-elseif($mode=='gestern')
-	{
-	echo'<u><b>Gestern gesamt:</b></u><br>
-	<center><img src="img/counter_img.php?time='.$time2.'" ></center><br><hr><br>
-	<u><b>Heute bisher:</b></u><br>
-	<center><img src="img/counter_img.php?time='.$time.'" ></center><br>';
-	};
-echo '<div align="center"><a href="index.php?'.SID.'">Zur&uuml;ck</a></div><br>';
+
+tab_go("100%", 200, "center", "Counter");
+
+if ($mode == 'heute') {
+    echo '<strong>Heute bisher:</strong><br>
+    <div style="text-align: center;">
+        <img src="img/counter_img.php?time=' . $time . '" alt="Counter Image">
+    </div>
+    <br><hr><br>
+    <strong>Gestern gesamt:</strong><br>
+    <div style="text-align: center;">
+        <img src="img/counter_img.php?time=' . $time2 . '" alt="Counter Image">
+    </div><br>';
+} elseif ($mode == 'gestern') {
+    echo '<strong>Gestern gesamt:</strong><br>
+    <div style="text-align: center;">
+        <img src="img/counter_img.php?time=' . $time2 . '" alt="Counter Image">
+    </div>
+    <br><hr><br>
+    <strong>Heute bisher:</strong><br>
+    <div style="text-align: center;">
+        <img src="img/counter_img.php?time=' . $time . '" alt="Counter Image">
+    </div><br>';
+}
+
+echo '<div style="text-align: center;"><a href="index.php?' . SID . '">Zurück</a></div><br>';
+
 tab_end();
 ?>

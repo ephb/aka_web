@@ -1,6 +1,7 @@
 <?php
 include('scripts/config.php');
-include('scripts/fkt_jkw.php');
+require_once('../a_common_scripts/fkt_jkw.php');
+
 
 
 $daten="

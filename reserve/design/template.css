@@ -375,4 +375,8 @@ a.toclink:hover {
 .buttonheading {
 	border: 1px solid #cccccc;
 	padding: 2px 2px 2px 2px;
-}-->
+}
+.gray {
+	background-color: #d4d4d4;  /* Light gray background */
+}
+-->
