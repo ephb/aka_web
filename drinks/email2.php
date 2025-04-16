@@ -10,8 +10,8 @@ for ($a=0;$a<=$max_user;$a++) {
 	unset($add_text);
 	$current_user=$daten[$a];
 	
-	if($changed[$current_user[0]]==1 && !empty($current_user[12])) { // �nderung vorhanden und eine mail adresse da
-		$temp_user=$a; // f�r die pranger info an den admin;
+	if($changed[$current_user[0]]==1 && !empty($current_user[12])) { // Änderung vorhanden und eine mail adresse da
+		$temp_user=$a; // für die pranger info an den admin;
 
 		// create firstname from data
 		$temp=explode(" ",$current_user[1]);
@@ -28,13 +28,13 @@ for ($a=0;$a<=$max_user;$a++) {
 		};
 
 		// wir haben x modes:
-		// 1. striche wurden in das abrechnungssystem �bertragen, der nutzer hat aber noch >10� geld: identifikation des eintrags durch: 								datum letzer abbuchung > datum letzer aufbuchung && guthaben
-		// 2. striche wurden in das abrechnungssystem �bertragen, der nutzer hat aber noch  >-5  && <10� geld: identifikation des eintrags durch: 				datum letzer abbuchung > datum letzer aufbuchung && guthaben
-		// 3. striche wurden in das abrechnungssystem �bertragen, der nutzer hat  <-5� geld: identifikation des eintrags durch: 													datum letzer abbuchung > datum letzer aufbuchung && guthaben
-		// 4. dem nutzern wurden -5 euro �bertragen -> mahngeb�hr																																											datum letzer aufbuchung > datum letzer abbuchung && betrag 
-		// 5. der nutzer hat geld �berwiesen, -> gutschrift -> der nutzer hat nun >10�																																			datum letzer aufbuchung > datum letzer abbuchung && betrag && guthaben
-		// 6. der nutzer hat geld �berwiesen, -> gutschrift -> der nutzer hat noch immer <-5�																															datum letzer aufbuchung > datum letzer abbuchung && betrag && guthaben
-		// 7. der nutzer hat geld �berwiesen, -> gutschrift -> der nutzer hat nun >-5� <10�																																	datum letzer aufbuchung > datum letzer abbuchung && betrag && guthaben
+		// 1. striche wurden in das abrechnungssystem übertragen, der nutzer hat aber noch >10€ geld: identifikation des eintrags durch: 								datum letzer abbuchung > datum letzer aufbuchung && guthaben
+		// 2. striche wurden in das abrechnungssystem übertragen, der nutzer hat aber noch  >-5  && <10€ geld: identifikation des eintrags durch: 				datum letzer abbuchung > datum letzer aufbuchung && guthaben
+		// 3. striche wurden in das abrechnungssystem übertragen, der nutzer hat  <-5€ geld: identifikation des eintrags durch: 													datum letzer abbuchung > datum letzer aufbuchung && guthaben
+		// 4. dem nutzern wurden -5 euro übertragen -> mahngebühr																																											datum letzer aufbuchung > datum letzer abbuchung && betrag 
+		// 5. der nutzer hat geld überwiesen, -> gutschrift -> der nutzer hat nun >10€																																			datum letzer aufbuchung > datum letzer abbuchung && betrag && guthaben
+		// 6. der nutzer hat geld überwiesen, -> gutschrift -> der nutzer hat noch immer <-5€																															datum letzer aufbuchung > datum letzer abbuchung && betrag && guthaben
+		// 7. der nutzer hat geld überwiesen, -> gutschrift -> der nutzer hat nun >-5€ <10€																																	datum letzer aufbuchung > datum letzer abbuchung && betrag && guthaben
 
 		$mode=0;
 		if($current_user[4]>$current_user[7]){ // hier wurde gerade etwas aufgebucht
@@ -42,7 +42,7 @@ for ($a=0;$a<=$max_user;$a++) {
 				$mode=4;	// mahnung
 			}  else { // aufbuchung
 				if($current_user[8]>10){
-					$mode=5; // gutschrift auf >10�
+					$mode=5; // gutschrift auf >10€
 				} else if($current_user[8]<-5){
 					$mode=6; // gutschrift ohne sinn
 				} else {
@@ -63,15 +63,15 @@ for ($a=0;$a<=$max_user;$a++) {
 		$text=$firstname.' ,beim Getr&auml;nkesystem ist etwas schief gelaufen, bitte leite diese zur&uuml;ck an den Absender.';
 
 		if($mode==1){
-			$text='Hallo '.$firstname.', soeben wurden die Getr&auml;nkestriche in das <a href="https://akaweb.illuminum.de/drinks><span style="color: #eeeeee !important;" >Online System</span></a> (<i>PW: akapw</i>) &uuml;bertragen.<br>
+			$text='Hallo '.$firstname.', soeben wurden die Getr&auml;nkestriche in das <a href="https://portal.akakraft.de/drinks><span style="color: #eeeeee !important;" >Online System</span></a> (<i>PW: akapw</i>) &uuml;bertragen.<br>
 		Nach Abzug deiner '.$current_user[6].' Striche liegt dein neuer Kontostand nun bei  <b><font color="#'.$totalmoney_text_color.'"><u>'.$current_user[8].' eur</u></b></font> ! <br>
 			<br>Vielen Dank das du genug Geld vorh&auml;lst. Bur mit einem gemeinsamen Guthaben neue Getr&auml;nke bestellen k&ouml;nnen.<br>';
 		} else if($mode==2){
-			$text='Hallo '.$firstname.', soeben wurden die Getr&auml;nkestriche in das <a href="https://akaweb.illuminum.de/drinks><span style="color: #eeeeee !important;" >Online System</span></a> (<i>PW: akapw</i>) &uuml;bertragen.<br>
+			$text='Hallo '.$firstname.', soeben wurden die Getr&auml;nkestriche in das <a href="https://portal.akakraft.de/drinks><span style="color: #eeeeee !important;" >Online System</span></a> (<i>PW: akapw</i>) &uuml;bertragen.<br>
 		Nach Abzug deiner '.$current_user[6].' Striche liegt dein neuer Kontostand nun bei  <b><font color="#'.$totalmoney_text_color.'"><u>'.$current_user[8].' eur</u></b></font> ! <br>
 		Bitte gib dir M&uuml;he immer mindestens +10 eur auf deinem Konto zu haben, da wir nur mit einem gemeinsamen Guthaben neue Getr&auml;nke bestellen k&ouml;nnen.<br>';
 		} else if($mode==3){
-			$text='Hallo '.$firstname.', soeben wurden die Getr&auml;nkestriche in das <a href="https://akaweb.illuminum.de/drinks><span style="color: #eeeeee !important;" >Online System</span></a> (<i>PW: akapw</i>) &uuml;bertragen.<br>
+			$text='Hallo '.$firstname.', soeben wurden die Getr&auml;nkestriche in das <a href="https://portal.akakraft.de/drinks><span style="color: #eeeeee !important;" >Online System</span></a> (<i>PW: akapw</i>) &uuml;bertragen.<br>
 		Nach Abzug deiner '.$current_user[6].' Striche liegt dein neuer Kontostand nun bei  <b><font color="#'.$totalmoney_text_color.'"><u>'.$current_user[8].' eur</u></b></font> ! <br><br><u>Daher ist diese Mail als Mahnung zu verstehen.</u><br><br> Lade bitte dein Konto wieder auf &uuml;ber +10 eur auf,da wir nur mit einem gemeinsamen Guthaben neue Getr&auml;nke bestellen k&ouml;nnen.<br>
 		Solltest dein Konto am '.date('d.M.Y',time()+10*86400).' noch immer Schulden aufweisen werde ich dir leider 5 eur Mahngeb&uuml;hren aufschreiben m&uuml;ssen.<br>';
 		} else if($mode==4){
@@ -99,7 +99,7 @@ for ($a=0;$a<=$max_user;$a++) {
 		$common_footer='<br><br><div style="font-weight:normal; font-size:80%;">
 		Falls du neu sein solltest hier unser Ablauf/Regeln:<br>
 		<ul>
-		<li>Wir z&auml;hlen in unregelm&auml;&szlig;igen Abst&auml;nden die Striche auf der Getr&auml;nkeliste und &uuml;bertragen diese in das <a href="https://akaweb.illuminum.de/drinks><span style="color: #eeeeee !important;" >Online System</span></a> (<i>PW: akapw</i>)</li>
+		<li>Wir z&auml;hlen in unregelm&auml;&szlig;igen Abst&auml;nden die Striche auf der Getr&auml;nkeliste und &uuml;bertragen diese in das <a href="https://portal.akakraft.de/drinks><span style="color: #eeeeee !important;" >Online System</span></a> (<i>PW: akapw</i>)</li>
 		<li>Du bekommst eine pers&ouml;nliche Mail mit deinem Guthaben an deine E-Mail Adresse <span style="color: #eeeeee !important;" >'.$current_user[12].'</span> zugestellt. </li>
 		<li>Solltest du <u>weniger als +10 eur</u> auf deinem Konto haben, &uuml;berweise bitte genug Geld um im n&auml;chsten Zeitraum nicht ins Minus zu fallen.</li>
 			<li>Falls du sogar <u>mehr als 5 eur Schulden</u> haben solltest greift z&uuml;s&auml;tzlich unsere "Mahnungsregel": 
@@ -132,8 +132,8 @@ for ($a=0;$a<=$max_user;$a++) {
 		$body    = preg_replace("[\\\\]",'',$body);
 		$mail->AddReplyTo('admin@akakraft.de');
 		$mail->From 	= 'noreply@akakraft.de';
-		$mail->FromName = "AKA Getr".chr(228)."nkemailer";
-		$mail->Subject = "AkA Getr".chr(228)."nkelisten Update ".date('d.M.Y',time());
+		$mail->FromName = "AKA Getränkemailer";
+		$mail->Subject = "AkA Getränkelisten Update ".date('d.M.Y',time());
 		$mail->AltBody = "To view the message, please use an HTML compatible email viewer!"; 
 		$mail->MsgHTML($body);
 		$mail->ContentType=("multipart/related");
@@ -145,13 +145,13 @@ for ($a=0;$a<=$max_user;$a++) {
 		} else {	
 			echo '<font color="green"><b>Die Mail an '.$current_user[1].' ('.$current_user[12].') wurde verschickt.</b></font><br>';  
 		};	
-	}	elseif($changed[$current_user[0]]==1 && empty($current_user[12])	) { //das oben wir ausgefuert wenn der user ein/auszahlungen hatte das hier unten wenn keine email
+	}	elseif($changed[$current_user[0]]==1 && empty($current_user[12])	) { //das oben wir ausgefuehrt wenn der user ein/auszahlungen hatte das hier unten wenn keine email
 		echo '<font color="red"><b>Die Mail an '.$current_user[1].' konnte nicht verschickt werden,da sich keine Adresse in der Datenbank befindet.</b></font><br>';
 	};
 };
 ############## prangerliste mailen #######################	
-if(time()-$daten[$temp_user][7]<60){ # eigentlich doof aber total praktisch f�r den email button
-	$mysqli->query( "DELETE FROM `aka_mahnomat`" ); # alles l�schen
+if(time()-$daten[$temp_user][7]<60){ # eigentlich doof aber total praktisch für den email button
+	$mysqli->query( "DELETE FROM `aka_mahnomat`" ); # alles löschen
 	$mail    = new PHPMailer();
 	$body    = '<html><body><center>Hey Kolja, <br>die Aka Prangerliste: <br><br>';
 	$sql_user=array();
@@ -169,8 +169,8 @@ if(time()-$daten[$temp_user][7]<60){ # eigentlich doof aber total praktisch f�
 	$body    = preg_replace("[\\\\]",'',$body);
 	$mail->AddReplyTo('admin@akakraft.de');
 	$mail->From 	= 'noreply@akakraft.de';
-	$mail->FromName = "AKA Getr".chr(228)."nkemailer";
-	$mail->Subject = 'AKA Getr'.chr(228).'nkelisten Pranger (bis zum '.date('d.M.Y',time()+10*86400).')';
+	$mail->FromName = "AKA Getränkemailer";
+	$mail->Subject = 'AKA Getränkelisten Pranger (bis zum '.date('d.M.Y',time()+10*86400).')';
 	$mail->AltBody = "To view the message, please use an HTML compatible email viewer!"; 
 	$mail->MsgHTML($body);
 	$mail->AddAddress('getraenkewart@akakraft.de');

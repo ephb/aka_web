@@ -56,7 +56,7 @@ for ($a = 0; $a <= $max_user; $a++) {
         $body = '<html><body>Hallo ' . str_replace(' ', '', str_replace($daten[$a][11], '', $daten[$a][1])) . ', <br><br>' . $add_text . '<br>
  Dein akutelles Guthaben liegt bei:<br><b><font color="' . $bg_guthaben . '"><u>' . $daten[$a][8] . ' eur</u></b></font><br><br>
 Bitte sei bem&uuml;ht, stets ein Polster ( ~ 10 eur ) auf deinem Konto zu haben. <br>Allzeit guten Durst.<br>
-<a href="https://akaweb.illuminum.de/drinks/">Online-System</a> | <b>PW: </b>akapw<br><hr>
+<a href="https://portal.akakraft.de/drinks/">Online-System</a> | <b>PW: </b>akapw<br><hr>
 <b><u>Kontodaten</u></b><br>
 <b>Name:</b> Aka Kraft<br>
 <b>IBAN:</b> DE83 2519 0001 0550 9904 01<br>
@@ -105,8 +105,8 @@ if (isset ($temp_user) && time() - $daten[$temp_user][7] < 60) { # eigentlich do
     $body = preg_replace("[\\\\]", '', $body);
     $mail->AddReplyTo('admin@akakraft.de');
     $mail->From = 'noreply@akakraft.de';
-    $mail->FromName = "AKA Getr" . chr(228) . "nkemailer";
-    $mail->Subject = 'AKA Getr' . chr(228) . 'nkelisten Pranger (bis zum ' . date('d.M.Y', time() + 10 * 86400) . ')';
+    $mail->FromName = "AKA Getränkemailer";
+    $mail->Subject = 'AKA Getränkelisten Pranger (bis zum ' . date('d.M.Y', time() + 10 * 86400) . ')';
     $mail->AltBody = "To view the message, please use an HTML compatible email viewer!";
     $mail->MsgHTML($body);
     $mail->AddAddress('getraenkewart@akakraft.de');
