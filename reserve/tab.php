@@ -41,8 +41,20 @@ if (!empty($_POST['save'])) {
 	$recover = 0;
 	$reason = 0;
 
+	// Check if end time is before start time
+	if ($_POST['j_to_time-ts'] <= $_POST['j_from_time-ts']) {
+		$stop = 1;
+		$recover = 1;
+		$reason = 5;
+	}
+	// Check if duration is less than 1 minute
+	elseif ($_POST['j_to_time-ts'] - $_POST['j_from_time-ts'] < 60) {
+		$stop = 1;
+		$recover = 1;
+		$reason = 6;
+	}
 	// Check if reservation duration exceeds the maximum allowed time
-	if ($_POST['j_to_time-ts'] - $_POST['j_from_time-ts'] > $max_time[$_POST['wo']]) {
+	elseif ($_POST['j_to_time-ts'] - $_POST['j_from_time-ts'] > $max_time[$_POST['wo']]) {
 		$stop = 1;
 		$recover = 1;
 		$reason = 1;
@@ -95,6 +107,10 @@ if ($recover == 1) {
 		$info = '<span style="color:red;"><b>Fehler in der Datenbank, bitte später erneut versuchen oder den Admin informieren.</b></span>';
 	} elseif ($reason == 4) {
 		$info = '<span style="color:red;"><b>Dieser Platz ist im angegebenen Zeitraum bereits reserviert!</b></span>';
+	} elseif ($reason == 5) {
+		$info = '<span style="color:red;"><b>Das Enddatum muss nach dem Startdatum liegen!</b></span>';
+	} elseif ($reason == 6) {
+		$info = '<span style="color:red;"><b>Die Reservierung muss mindestens 1 Minute dauern!</b></span>';
 	}
 } else {
 	$result = java_cal2('', floor(time() / 3600) * 3600, floor(time() / 3600) * 3600 + 3600 * 3, time(), mktime(0, 0, 0, 1, 1, 2030), '_time', 'h,i', false);
@@ -108,7 +124,7 @@ if ($recover == 1) {
 }
 
 echo $result['css'];
-echo '<form action="index.php" method="POST">
+echo '<form action="index.php" method="POST" onsubmit="return validateReservation()">
 <table style="width:100%;" class="singletable" cellpadding="0">
     <tr><th>Von</th><th>Bis</th><th>Wo</th><th>Wer</th><th>Warum</th></tr>
     <tr>
@@ -120,6 +136,49 @@ echo '<form action="index.php" method="POST">
     </tr>
     <tr><td colspan="5" style="text-align:right;"><input type="submit" value="Speichern" name="save"> &nbsp; &nbsp; ' . $info . '</td></tr>
 </table></form>';
+
+// Add JavaScript validation
+echo '<script>
+function validateReservation() {
+    // Check for empty Wer and Warum fields
+    var name = document.getElementsByName("name")[0].value.trim();
+    var warum = document.getElementsByName("warum")[0].value.trim();
+    
+    if (name === "") {
+        alert("Das Feld \'Wer\' darf nicht leer sein!");
+        return false;
+    }
+    
+    if (warum === "") {
+        alert("Das Feld \'Warum\' darf nicht leer sein!");
+        return false;
+    }
+    
+    var fromDate = new Date(document.getElementById("j_from_time-date").value);
+    var fromTime = document.getElementById("j_from_time-hh").value + ":" + document.getElementById("j_from_time-mi").value;
+    var toDate = new Date(document.getElementById("j_to_time-date").value);
+    var toTime = document.getElementById("j_to_time-hh").value + ":" + document.getElementById("j_to_time-mi").value;
+    
+    fromDate.setHours(parseInt(fromTime.split(":")[0]));
+    fromDate.setMinutes(parseInt(fromTime.split(":")[1]));
+    toDate.setHours(parseInt(toTime.split(":")[0]));
+    toDate.setMinutes(parseInt(toTime.split(":")[1]));
+    
+    if (toDate <= fromDate) {
+        alert("Das Enddatum muss nach dem Startdatum liegen!");
+        return false;
+    }
+    
+    var duration = (toDate - fromDate) / 1000 / 60; // duration in minutes
+    if (duration < 1) {
+        alert("Die Reservierung muss mindestens 1 Minute dauern!");
+        return false;
+    }
+    
+    return true;
+}
+</script>';
+
 echo $result['java'];
 tab_end();
 
